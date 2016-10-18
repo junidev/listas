@@ -1,80 +1,65 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct node{
-    char n;
-    struct node *next;
+struct nodo{
+    int val;
+    struct nodo *next;
 };
-void create(struct node *p){
-    struct node *vec,*cur;
-    char m;
 
-    scanf("%c",&m);
-    p->n=m;
-    vec=p;
-    scanf("%c",&m);
-    for(;m!='\n';){
-        while(m==' '){scanf("%c",&m);}
-        cur = malloc (sizeof (struct node));
-        cur->n=m;
-        vec->next=cur;
-        vec=cur;
-        scanf("%c",&m);
+void add(struct nodo *, int);
+void imprimir(struct nodo *);
+void eliminar(struct nodo *, int);
+
+struct nodo * crearLista() {
+    struct nodo *cabeza = malloc(sizeof(struct nodo));
+    cabeza->val = 1;
+    struct nodo* cur = cabeza;
+	int i;
+    for(i = 2; i<=15; i++){
+        struct nodo *newNodo = malloc(sizeof(struct nodo));
+        newNodo-> val = i;
+        cur-> next = newNodo;
+        cur = newNodo;
     }
-    vec->next=NULL;
-    return ;
+    cur-> next = NULL;
+    return cabeza;
 }
 
-void show(struct node *p){
-    struct node *q;
+int main()
+{
+    struct nodo *cabeza = crearLista();
 
-    q=p;
-    for(;q!=NULL;){
-        printf("%c\n",q->n);
-        q=q->next;
-    }
-    return ;
-}
-void delete(struct node *p,char posicion){
-    struct node *q,*w;
+    imprimir(cabeza);
 
-    q=p;
-    if(q->n==posicion){
-        p=p->next;
-        return ;
-    }
-    w=q->next;
-    while(w!=NULL){
-        if(w->n==posicion){
-            q->next=w->next;
-            break;
-        }
-        q=q->next;
-        w=w->next;
-    }
-    return;
-}
-void add(struct node *p,int posicion,char w){
-    struct node *q,*s,*r;
-
-    q=p;
-    r=q->next;
-    int i;
-    for(i=0;i<posicion-2;i++){
-        q=q->next;
-        r=r->next;
-    }
-    s->n=w;
-    s->next=r;
-    q->next=s;
-}
-main(){
-    struct node *head;
-    head=malloc(sizeof(struct node));
-    create(head);
-    add(head,2,'1');
-    delete(head,'w');
-    show(head);
     return 0;
 }
 
+void add(struct nodo *cur, int n)
+{
+    struct nodo *nodomas = malloc(sizeof(struct nodo));
+    nodomas-> val = n;
+    nodomas-> next = NULL;
+    cur->next = nodomas;
+}
+
+void imprimir(struct nodo *cabeza)
+{
+    struct nodo *cur;
+    for(cur = cabeza; cur != NULL; cur = cur->next){
+        printf("%d -> ", cur->val);
+    }
+    printf("\n");
+}
+
+void eliminar(struct nodo *cabeza, int n)
+{
+
+    struct nodo *cur = cabeza;
+    struct nodo *prev = cabeza;
+    printf("%d\n",cabeza->val);
+    if (cabeza-> val == n){
+        cabeza = cabeza->next;
+        free(prev);
+    }
+
+}
