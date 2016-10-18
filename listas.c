@@ -1,21 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 struct node{
     char n;
     struct node *next;
 };
-void crear(struct node *p){
+void create(struct node *p){
     struct node *vec,*cur;
     char m;
-    vec=malloc(sizeof (struct node));
+
     scanf("%c",&m);
     p->n=m;
     vec=p;
     scanf("%c",&m);
     for(;m!='\n';){
-        while(m==' ' || m=='\t'){scanf("%c",&m);}
+        while(m==' '){scanf("%c",&m);}
         cur = malloc (sizeof (struct node));
         cur->n=m;
         vec->next=cur;
@@ -25,16 +24,10 @@ void crear(struct node *p){
     vec->next=NULL;
     return ;
 }
-void concatenar(struct node *p,struct node *q){
-	struct node *s;
-	s=p->next;
-	for(;s!=NULL;){
-		s=s->next;
-	}
-	s=q;
-}
-void mostrar(struct node *p){
+
+void show(struct node *p){
     struct node *q;
+
     q=p;
     for(;q!=NULL;){
         printf("%c\n",q->n);
@@ -42,8 +35,9 @@ void mostrar(struct node *p){
     }
     return ;
 }
-void quitar(struct node *p,char posicion){
+void delete(struct node *p,char posicion){
     struct node *q,*w;
+
     q=p;
     if(q->n==posicion){
         p=p->next;
@@ -60,8 +54,9 @@ void quitar(struct node *p,char posicion){
     }
     return;
 }
-void poner(struct node *p,int posicion,char w){
+void add(struct node *p,int posicion,char w){
     struct node *q,*s,*r;
+
     q=p;
     r=q->next;
     int i;
@@ -76,9 +71,10 @@ void poner(struct node *p,int posicion,char w){
 main(){
     struct node *head;
     head=malloc(sizeof(struct node));
-    crear(head);
-    poner(head,2,'1');
-    quitar(head,'w');
-    mostrar(head);
+    create(head);
+    add(head,2,'1');
+    delete(head,'w');
+    show(head);
     return 0;
 }
+
